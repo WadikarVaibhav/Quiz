@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Quiz</string>
+
+    <string name="hint_firstname">First Name</string>
+    <string name="hint_lastname">Last Name</string>
+    <string name="hint_nickname">Nickname</string>
+    <string name="hint_age">Age</string>
+    <string name="btn_submit">Submit</string>
+    <string name="welcome">Welcome</string>
+
 </resources>
