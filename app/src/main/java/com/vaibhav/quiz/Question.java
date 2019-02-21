@@ -14,6 +14,15 @@ public class Question extends Fragment {
     private String option2;
     private String option3;
     private String option4;
+    private String alias;
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public String getQuestion() {
         return question;

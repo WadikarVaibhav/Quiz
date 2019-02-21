@@ -18,7 +18,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         private static final String CREATE_TABLE_USER = "CREATE TABLE "+ USER_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FIRST_NAME TEXT, LAST_NAME TEXT, NICK_NAME TEXT, AGE INTEGER)";
         private static final String CREATE_TABLE_SCORE = "CREATE TABLE "+ SCORE_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USER INTEGER, SCORE INTEGER, DATE DATETIME)";
-        private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "+ QUESTIONS_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT, ANSWER TEXT, QPTION1 TEXT, QPTION2 TEXT, QPTION3 TEXT, QPTION4 TEXT)";
+        private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "+ QUESTIONS_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT, ANSWER TEXT, QPTION1 TEXT, QPTION2 TEXT, QPTION3 TEXT, QPTION4 TEXT, ALIAS TEXT)";
 
         public DatabaseHelper(Context context) {
              super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,7 +27,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Log.i("here", "here");
             db.execSQL(CREATE_TABLE_USER);
             db.execSQL(CREATE_TABLE_QUESTION);
             db.execSQL(CREATE_TABLE_SCORE);
@@ -41,7 +40,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 onCreate(db);
         }
 
-        public void insert(User user) {
+        public int insert(User user) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("FIRST_NAME", user.getFirstname());
@@ -49,8 +48,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
             values.put("NICK_NAME", user.getNickname());
             values.put("AGE", user.getAge());
 
-            db.insert(USER_TABLE, null, values);
-
-            Log.i("success", "success");
+            int userId = (int)db.insert(USER_TABLE, null, values);
+            return userId;
         }
 }
