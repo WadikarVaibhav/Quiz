@@ -7,22 +7,17 @@
               android:layout_height="match_parent">
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:text="How many combined points did the team score in the last super bowl?"
+              android:layout_margin="10dp" android:id="@+id/question"
               android:textSize="20sp" android:textStyle="bold"/>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"  android:orientation="vertical">
-        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="7"
-                     android:textSize="18sp"/>
-        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="10"
-                     android:textSize="18sp"/>
-        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="16"
-                     android:textSize="18sp"/>
-        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:text="21"
-                     android:textSize="18sp"/>
-    </LinearLayout>
+    <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/radiogroup" android:orientation="vertical">
+        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:id="@+id/btn1"/>
+        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:id="@+id/btn2"/>
+        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:id="@+id/btn3"/>
+        <RadioButton android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:id="@+id/btn4"/>
+    </RadioGroup>
 
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Next"
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/next"
             android:layout_gravity="right" android:layout_margin="10dp" android:textSize="18sp"
             android:textStyle="bold"/>
 

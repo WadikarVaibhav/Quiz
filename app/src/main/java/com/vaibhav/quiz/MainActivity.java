@@ -15,7 +15,7 @@ class MainActivity extends AppCompatActivity {
     EditText lastname;
     EditText age;
     Button submit;
-    private static DatabaseHelper dbHelper = null;
+    DatabaseHelper dbHelper;
 
 
     @Override
@@ -33,8 +33,8 @@ class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 User user = new User(firstname.getText().toString(), lastname.getText().toString(), nickname.getText().toString(), Integer.parseInt(age.getText().toString()));
                 int userId = dbHelper.insert(user);
-                Log.i("id: ", userId+"");
                 Intent intent = new Intent(MainActivity.this, QuizBoard.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });

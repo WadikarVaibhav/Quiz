@@ -2,9 +2,13 @@ package com.vaibhav.quiz;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -18,7 +22,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         private static final String CREATE_TABLE_USER = "CREATE TABLE "+ USER_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FIRST_NAME TEXT, LAST_NAME TEXT, NICK_NAME TEXT, AGE INTEGER)";
         private static final String CREATE_TABLE_SCORE = "CREATE TABLE "+ SCORE_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USER INTEGER, SCORE INTEGER, DATE DATETIME)";
-        private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "+ QUESTIONS_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT, ANSWER TEXT, QPTION1 TEXT, QPTION2 TEXT, QPTION3 TEXT, QPTION4 TEXT, ALIAS TEXT)";
+        private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "+ QUESTIONS_TABLE +"(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, QUESTION TEXT, ANSWER INTEGER, OPTION1 TEXT, OPTION2 TEXT, OPTION3 TEXT, OPTION4 TEXT)";
 
         public DatabaseHelper(Context context) {
              super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,6 +44,29 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 onCreate(db);
         }
 
+        public List<Question> getAllQuestion() {
+            List<Question> questions = new ArrayList<>();
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "SELECT * FROM " + QUESTIONS_TABLE +";";
+            Cursor cursor = db.rawQuery(query, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Question question = new Question();
+                    question.setQuestionId(Integer.parseInt(cursor.getString(0)));
+                    question.setQuestion(cursor.getString(1));
+                    question.setAnswer(cursor.getInt(2));
+                    question.setOption1(cursor.getString(3));
+                    question.setOption2(cursor.getString(4));
+                    question.setOption3(cursor.getString(5));
+                    question.setOption4(cursor.getString(6));
+                    question.setSelectedAnswer(false);
+                    questions.add(question);
+                } while (cursor.moveToNext());
+            }
+            return questions;
+        }
+
         public int insert(User user) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -47,7 +74,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
             values.put("LAST_NAME", user.getLastname());
             values.put("NICK_NAME", user.getNickname());
             values.put("AGE", user.getAge());
-
             int userId = (int)db.insert(USER_TABLE, null, values);
             return userId;
         }

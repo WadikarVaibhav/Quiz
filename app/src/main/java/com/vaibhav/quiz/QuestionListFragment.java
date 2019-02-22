@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-public class Questions extends ListFragment implements AdapterView.OnItemClickListener {
+public class QuestionListFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +29,6 @@ public class Questions extends ListFragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
         ListToDetails listToDetails = (ListToDetails) getActivity();
-        listToDetails.showQuestions(position);
+        listToDetails.showQuestionOnFragment(position, -1);
     }
 }

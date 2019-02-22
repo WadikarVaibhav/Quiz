@@ -1,20 +1,24 @@
 package com.vaibhav.quiz;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+public class Question {
 
-public class Question extends Fragment {
-
+    private int questionId;
     private String question;
-    private String answer;
+    private int answer;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
     private String alias;
+    private boolean selectedAnswer;
+
+    public boolean getSelectedAnswer() { return selectedAnswer; }
+
+    public void setSelectedAnswer(boolean selectedAnswer) { this.selectedAnswer = selectedAnswer; }
+
+    public int getQuestionId() { return questionId; }
+
+    public void setQuestionId(int questionId) {this.questionId = questionId; }
 
     public String getAlias() {
         return alias;
@@ -32,11 +36,11 @@ public class Question extends Fragment {
         this.question = question;
     }
 
-    public String getAnswer() {
+    public int getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(int answer) {
         this.answer = answer;
     }
 
@@ -70,12 +74,6 @@ public class Question extends Fragment {
 
     public void setOption4(String option4) {
         this.option4 = option4;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.question, container, false);
-        return view;
     }
 
 }
