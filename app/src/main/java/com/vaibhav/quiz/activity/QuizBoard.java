@@ -99,9 +99,15 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         }
     }
 
+    private void saveSummary() {
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        dbHelper.insert(summary);
+    }
+
     private void scoreCard() {
         summary.setEndDate(Calendar.getInstance().getTime());
         summary.setScore(finalScore());
+        saveSummary();
         setResult(Activity.RESULT_OK, getReturnIntent());
         finish();
     }

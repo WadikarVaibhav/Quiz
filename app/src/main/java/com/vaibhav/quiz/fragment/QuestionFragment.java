@@ -25,7 +25,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.question, container, false);
+        View view = inflater.inflate(R.layout.question_fragment, container, false);
 
         question = (TextView) view.findViewById(R.id.question);
         radioGroup = (RadioGroup) view.findViewById(R.id.radiogroup);

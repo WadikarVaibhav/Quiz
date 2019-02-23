@@ -20,7 +20,7 @@ public class ScoreCardFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_score_card, container, false);
+        View view = inflater.inflate(R.layout.score_card_fragment, container, false);
 
         name = (TextView) view.findViewById(R.id.name);
         score = (TextView) view.findViewById(R.id.score);

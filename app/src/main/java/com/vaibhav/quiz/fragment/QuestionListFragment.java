@@ -14,7 +14,7 @@ public class QuestionListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questions, container, false);
+        View view = inflater.inflate(R.layout.questions_list_fragment, container, false);
         return view;
     }
 

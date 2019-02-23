@@ -14,10 +14,11 @@ public class ActivityConstants {
     public static final String QUIT_MESSAGE = "Do you want to quit this quiz?";
     public static final String QUIT_MESSAGE_YES = "Yes";
     public static final String QUIT_MESSAGE_NO = "No";
+    public static final String VALIDATION_MESSAGE = "Please Enter First and Last Name";
 
     public static final String BUTTON_TEXT_NEXT = "Next";
     public static final String BUTTON_TEXT_FINISH = "Finish";
-    public static final String QUESTIONS_LIST_LABEL = "questions";
+    public static final String QUESTIONS_LIST_LABEL = "questions_list_fragment";
     public static final String QUESTION_ID = "questionId";
     public static final String QUESTION_TEXT = "question";
     public static final String ANSWER = "answer";
