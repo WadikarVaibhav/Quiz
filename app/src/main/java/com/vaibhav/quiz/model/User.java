@@ -1,6 +1,6 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.model;
 
-class User {
+public class User {
 
     private String firstname;
     private String lastname;

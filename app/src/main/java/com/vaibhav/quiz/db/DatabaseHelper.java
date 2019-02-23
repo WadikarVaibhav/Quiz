@@ -1,16 +1,17 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import com.vaibhav.quiz.model.Question;
+import com.vaibhav.quiz.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
         public static final int DATABASE_VERSION = 1;
         SQLiteDatabase db;

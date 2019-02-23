@@ -1,4 +1,4 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,13 +6,20 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import com.vaibhav.quiz.*;
+import com.vaibhav.quiz.db.DatabaseHelper;
+import com.vaibhav.quiz.fragment.QuestionFragment;
+import com.vaibhav.quiz.fragment.QuestionListFragment;
+import com.vaibhav.quiz.model.Question;
+import com.vaibhav.quiz.model.ScoreBoard;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class QuizBoard extends AppCompatActivity implements ListToDetails {
+public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
     private List<Question> questions;
     private ScoreBoard scoreBoard;
@@ -23,11 +30,11 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
         setContentView(R.layout.quiz_board);
         scoreBoard = new ScoreBoard();
         fetchQuestionsFromDB();
-        setQuizSummary();
-        showQuestionListInFragment();
+        initQuizSummary();
+        questionList();
     }
 
-    private void setQuizSummary() {
+    private void initQuizSummary() {
         scoreBoard.setUser(getIntent().getExtras().getInt("userId"));
         scoreBoard.setStartDate(Calendar.getInstance().getTime());
         scoreBoard.setEndDate(Calendar.getInstance().getTime());
@@ -39,7 +46,7 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
         questions = dbHelper.getAllQuestion();
     }
 
-    private void showQuestionListInFragment() {
+    private void questionList() {
         QuestionListFragment questionList = new QuestionListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -54,7 +61,7 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
         return "Finish";
     }
 
-    private Bundle getQuestionDetailsInBundle(int questionId) {
+    private Bundle questionDetailsBundle(int questionId) {
         Bundle bundle = new Bundle();
         for (Question question: questions) {
             if (question.getQuestionId() == questionId) {
@@ -72,9 +79,9 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
     }
 
     @Override
-    public void showQuestionOnFragment(int nextQuestion, int selectedAnswer) {
+    public void nextQuestion(int nextQuestion, int selectedAnswer) {
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setArguments(getQuestionDetailsInBundle(nextQuestion));
+        questionFragment.setArguments(questionDetailsBundle(nextQuestion));
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, questionFragment, "questionFragment");
@@ -89,24 +96,24 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
         }
     }
 
-    private void showFinalScoreCard() {
+    private void scoreCard() {
         scoreBoard.setEndDate(Calendar.getInstance().getTime());
-        scoreBoard.setScore(getFinalScore());
+        scoreBoard.setScore(finalScore());
         setResult(Activity.RESULT_OK, getReturnIntent());
         finish();
     }
 
     @Override
-    public void updateScoreBoard(int nextQuestion, int selectedAnswer) {
-        updateScore(nextQuestion-1, selectedAnswer);
-        if (nextQuestion >= questions.size()) {
-            showFinalScoreCard();
+    public void onNextQuestion(int nextQuestionId, int selectedAnswer) {
+        updateScore(nextQuestionId-1, selectedAnswer);
+        if (nextQuestionId > questions.size()) {
+            scoreCard();
         } else {
-            showQuestionOnFragment(nextQuestion, selectedAnswer);
+            nextQuestion(nextQuestionId, selectedAnswer);
         }
     }
 
-    private int getFinalScore() {
+    private int finalScore() {
         int score = 0;
         for (Question question: questions) {
             if (question.getSelectedAnswer() == true) {
@@ -116,19 +123,20 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
         return score;
     }
 
+    private String formatDate(Date date) {
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yy h.mm.a");
+        return simpleDateFormat.format(date);
+    }
+
     private Intent getReturnIntent() {
         Intent returnToMainActivity = new Intent();
         returnToMainActivity.putExtra("score", scoreBoard.getScore());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        returnToMainActivity.putExtra("start", simpleDateFormat.format(scoreBoard.getStartDate()));
-        returnToMainActivity.putExtra("end", simpleDateFormat.format(scoreBoard.getEndDate()));
+
+        returnToMainActivity.putExtra("start", formatDate(scoreBoard.getStartDate()));
+        returnToMainActivity.putExtra("end", formatDate(scoreBoard.getEndDate()));
         returnToMainActivity.putExtra("user", scoreBoard.getUser());
 
         return returnToMainActivity;
     }
 
-    @Override
-    public void submitUser(User user) {
-
-    }
 }

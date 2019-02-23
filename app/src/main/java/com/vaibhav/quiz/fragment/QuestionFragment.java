@@ -1,8 +1,7 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import com.vaibhav.quiz.QuizCommunicator;
+import com.vaibhav.quiz.R;
 
 public class QuestionFragment extends Fragment implements View.OnClickListener {
 
@@ -47,9 +48,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        ListToDetails listToDetails = (ListToDetails) getActivity();
+        QuizCommunicator listToDetails = (QuizCommunicator) getActivity();
         int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))+1;
         int nextQuestion = getArguments().getInt("questionId") + 1;
-        listToDetails.updateScoreBoard(nextQuestion, selectedAnswer);
+        listToDetails.onNextQuestion(nextQuestion, selectedAnswer);
     }
 }

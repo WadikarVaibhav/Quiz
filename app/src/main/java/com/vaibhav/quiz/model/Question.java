@@ -1,15 +1,14 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.model;
 
 public class Question {
 
     private int questionId;
     private String question;
-    private int answer;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
-    private String alias;
+    private int answer;
     private boolean selectedAnswer;
 
     public boolean getSelectedAnswer() { return selectedAnswer; }
@@ -19,14 +18,6 @@ public class Question {
     public int getQuestionId() { return questionId; }
 
     public void setQuestionId(int questionId) {this.questionId = questionId; }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
 
     public String getQuestion() {
         return question;

@@ -1,4 +1,4 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.model;
 
 import java.util.Date;
 

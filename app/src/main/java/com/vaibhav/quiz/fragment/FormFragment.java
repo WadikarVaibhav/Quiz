@@ -1,11 +1,16 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.fragment;
 
 import android.os.Bundle;
+import android.service.autofill.UserData;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.vaibhav.quiz.QuizCommunicator;
+import com.vaibhav.quiz.R;
+import com.vaibhav.quiz.UserDataCommunicator;
+import com.vaibhav.quiz.model.User;
 
 public class FormFragment extends Fragment implements View.OnClickListener {
 
@@ -30,7 +35,7 @@ public class FormFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         User user = new User(firstname.getText().toString(), lastname.getText().toString(), nickname.getText().toString(), Integer.parseInt(age.getText().toString()));
-        ListToDetails listToDetails = (ListToDetails) getActivity();
+        UserDataCommunicator listToDetails = (UserDataCommunicator) getActivity();
         listToDetails.submitUser(user);
     }
 }

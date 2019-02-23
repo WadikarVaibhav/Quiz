@@ -1,4 +1,4 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import com.vaibhav.quiz.QuizCommunicator;
+import com.vaibhav.quiz.R;
 
 public class QuestionListFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
@@ -27,7 +28,7 @@ public class QuestionListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ListToDetails listToDetails = (ListToDetails) getActivity();
-        listToDetails.showQuestionOnFragment(++position, -1);
+        QuizCommunicator listToDetails = (QuizCommunicator) getActivity();
+        listToDetails.nextQuestion(++position, -1);
     }
 }
