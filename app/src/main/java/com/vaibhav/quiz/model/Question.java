@@ -11,13 +11,21 @@ public class Question {
     private int answer;
     private boolean selectedAnswer;
 
-    public boolean getSelectedAnswer() { return selectedAnswer; }
+    public boolean getSelectedAnswer() {
+        return selectedAnswer;
+    }
 
-    public void setSelectedAnswer(boolean selectedAnswer) { this.selectedAnswer = selectedAnswer; }
+    public void setSelectedAnswer(boolean selectedAnswer) {
+        this.selectedAnswer = selectedAnswer;
+    }
 
-    public int getQuestionId() { return questionId; }
+    public int getQuestionId() {
+        return questionId;
+    }
 
-    public void setQuestionId(int questionId) {this.questionId = questionId; }
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
 
     public String getQuestion() {
         return question;

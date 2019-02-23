@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.vaibhav.quiz.R;
+import com.vaibhav.quiz.constants.ActivityConstants;
 
 public class ScoreCardFragment extends Fragment implements View.OnClickListener {
 
@@ -29,10 +30,10 @@ public class ScoreCardFragment extends Fragment implements View.OnClickListener 
         quit.setOnClickListener(this);
 
         Bundle bundle = getArguments();
-        name.setText(bundle.getInt("name", 0)+"");
-        score.setText(bundle.getInt("score", 0)+"");
-        start.setText(bundle.getString("start", ""));
-        end.setText(bundle.getString("end", ""));
+        name.setText(bundle.getInt(ActivityConstants.USER_NAME, 0)+"");
+        score.setText(bundle.getInt(ActivityConstants.SCORE, 0)+"");
+        start.setText(bundle.getString(ActivityConstants.START_TIME, ""));
+        end.setText(bundle.getString(ActivityConstants.END_TIME, ""));
 
         return view;
     }

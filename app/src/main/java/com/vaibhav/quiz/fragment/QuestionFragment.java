@@ -9,8 +9,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.vaibhav.quiz.QuizCommunicator;
+import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.R;
+import com.vaibhav.quiz.constants.ActivityConstants;
 
 public class QuestionFragment extends Fragment implements View.OnClickListener {
 
@@ -35,12 +36,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         next = (Button) view.findViewById(R.id.next);
 
         Bundle bundle = getArguments();
-        question.setText(bundle.getString("question", ""));
-        btn1.setText(bundle.getString("option1", ""));
-        btn2.setText(bundle.getString("option2", ""));
-        btn3.setText(bundle.getString("option3", ""));
-        btn4.setText(bundle.getString("option4", ""));
-        next.setText(bundle.getString("btnText", ""));
+        question.setText(bundle.getString(ActivityConstants.QUESTION_TEXT, ""));
+        btn1.setText(bundle.getString(ActivityConstants.OPTION_1, ""));
+        btn2.setText(bundle.getString(ActivityConstants.OPTION_2, ""));
+        btn3.setText(bundle.getString(ActivityConstants.OPTION_3, ""));
+        btn4.setText(bundle.getString(ActivityConstants.OPTION_4, ""));
+        next.setText(bundle.getString(ActivityConstants.BUTTON_TEXT, ""));
         next.setOnClickListener(this);
 
         return view;
@@ -48,9 +49,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        QuizCommunicator listToDetails = (QuizCommunicator) getActivity();
         int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))+1;
-        int nextQuestion = getArguments().getInt("questionId") + 1;
-        listToDetails.onNextQuestion(nextQuestion, selectedAnswer);
+        int nextQuestion = getArguments().getInt(ActivityConstants.QUESTION_ID) + 1;
+        QuizCommunicator quizCommunicator = (QuizCommunicator) getActivity();
+        quizCommunicator.onNextQuestion(nextQuestion, selectedAnswer);
     }
 }

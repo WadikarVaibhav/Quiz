@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import com.vaibhav.quiz.QuizCommunicator;
+import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.R;
 
 public class QuestionListFragment extends ListFragment implements AdapterView.OnItemClickListener {
@@ -28,7 +28,7 @@ public class QuestionListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        QuizCommunicator listToDetails = (QuizCommunicator) getActivity();
-        listToDetails.nextQuestion(++position, -1);
+        QuizCommunicator quizCommunicator = (QuizCommunicator) getActivity();
+        quizCommunicator.nextQuestion(++position, -1);
     }
 }

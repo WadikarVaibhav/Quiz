@@ -6,20 +6,20 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center" android:orientation="vertical">
         <LinearLayout android:layout_width="match_parent" android:layout_height="40dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Name" android:layout_weight="1" android:gravity="center"/>
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/name" android:layout_weight="1" android:gravity="center"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Name" android:layout_weight="1" android:layout_margin="10dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/name" android:layout_weight="1" android:layout_margin="10dp"/>
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent" android:layout_height="40dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Score" android:layout_weight="1" android:gravity="center"/>
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/score" android:layout_weight="1" android:gravity="center"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Score" android:layout_weight="1" android:layout_margin="10dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/score" android:layout_weight="1" android:layout_margin="10dp"/>
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent" android:layout_height="40dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Start Time" android:layout_weight="1" android:gravity="center"/>
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/start" android:layout_weight="1" android:gravity="center"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="Start Time" android:layout_weight="1" android:layout_margin="10dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/start" android:layout_weight="1" android:layout_margin="10dp"/>
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent" android:layout_height="40dp" android:orientation="horizontal">
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="End Time" android:layout_weight="1" android:gravity="center"/>
-            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/end" android:layout_weight="1" android:gravity="center"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:text="End Time" android:layout_weight="1" android:layout_margin="10dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/end" android:layout_weight="1" android:layout_margin="10dp"/>
         </LinearLayout>
         <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/quit" android:text="Quit"/>
     </LinearLayout>

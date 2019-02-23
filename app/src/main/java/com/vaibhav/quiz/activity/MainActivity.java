@@ -8,17 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.vaibhav.quiz.UserDataCommunicator;
+import com.vaibhav.quiz.communication.UserDataCommunicator;
+import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.db.DatabaseHelper;
-import com.vaibhav.quiz.QuizCommunicator;
 import com.vaibhav.quiz.R;
 import com.vaibhav.quiz.model.User;
 import com.vaibhav.quiz.fragment.FormFragment;
 import com.vaibhav.quiz.fragment.ScoreCardFragment;
 
 public class MainActivity extends AppCompatActivity implements UserDataCommunicator {
-
-    public static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,15 +30,15 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         int userId = db.insert(user);
         Intent intent = new Intent(MainActivity.this, QuizBoard.class);
-        intent.putExtra("userId", userId);
-        startActivityForResult(intent, REQUEST_CODE);
+        intent.putExtra(ActivityConstants.USER_ID, userId);
+        startActivityForResult(intent, ActivityConstants.REQUEST_CODE);
     }
 
     private void userRegistrationForm() {
         FormFragment form = new FormFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_container, form, "form");
+        transaction.add(R.id.main_container, form, ActivityConstants.FORM_LABEL);
         transaction.commit();
     }
 
@@ -50,22 +48,22 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
         scoreCardFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, scoreCardFragment, "scoreCardFragment");
+        transaction.replace(R.id.main_container, scoreCardFragment, ActivityConstants.SCORE_CARD_LABEL);
         transaction.commitAllowingStateLoss();
     }
 
     private Bundle scoreCardBundle(Intent data) {
         Bundle bundle = new Bundle();
-        bundle.putInt("score", data.getIntExtra("score", 0));
-        bundle.putString("start", data.getStringExtra("start"));
-        bundle.putString("end", data.getStringExtra("end"));
-        bundle.putInt("name", data.getIntExtra("user", 0));
+        bundle.putInt(ActivityConstants.SCORE, data.getIntExtra(ActivityConstants.SCORE, 0));
+        bundle.putString(ActivityConstants.START_TIME, data.getStringExtra(ActivityConstants.START_TIME));
+        bundle.putString(ActivityConstants.END_TIME, data.getStringExtra(ActivityConstants.END_TIME));
+        bundle.putInt(ActivityConstants.USER_NAME, data.getIntExtra(ActivityConstants.USER_NAME, 0));
         return bundle;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == ActivityConstants.REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 scoreCard(data);
             }
@@ -75,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
-            .setTitle("Quit Quiz").setMessage("Do you want to quit this quiz?")
-            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            .setTitle(ActivityConstants.QUIT_MESSAGE_TITLE).setMessage(ActivityConstants.QUIT_MESSAGE)
+            .setPositiveButton(ActivityConstants.QUIT_MESSAGE_YES, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
             })
-            .setNegativeButton("No", null)
+            .setNegativeButton(ActivityConstants.QUIT_MESSAGE_NO, null)
             .show();
     }
 

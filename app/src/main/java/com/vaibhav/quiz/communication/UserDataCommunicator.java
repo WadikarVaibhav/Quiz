@@ -1,4 +1,4 @@
-package com.vaibhav.quiz;
+package com.vaibhav.quiz.communication;
 
 import com.vaibhav.quiz.model.User;
 
