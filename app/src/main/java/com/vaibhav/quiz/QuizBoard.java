@@ -1,9 +1,14 @@
 package com.vaibhav.quiz;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,15 +40,15 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
     }
 
     private void showQuestionListInFragment() {
-        QuestionListFragment questions = new QuestionListFragment();
+        QuestionListFragment questionList = new QuestionListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, questions, "questions");
+        transaction.add(R.id.container, questionList, "questions");
         transaction.commit();
     }
 
-    private String getButtonText(int index) {
-        if (index < 4) {
+    private String getButtonText(int questionIndex) {
+        if (questionIndex < questions.size()) {
             return "Next";
         }
         return "Finish";
@@ -67,26 +72,63 @@ public class QuizBoard extends AppCompatActivity implements ListToDetails {
     }
 
     @Override
-    public void showQuestionOnFragment(int selectedQuestionId, int selectedAnswer) {
-        if (selectedAnswer != -1) {
-            updateScoreBoard(selectedQuestionId, selectedAnswer);
-        }
+    public void showQuestionOnFragment(int nextQuestion, int selectedAnswer) {
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setArguments(getQuestionDetailsInBundle(++selectedQuestionId));
+        questionFragment.setArguments(getQuestionDetailsInBundle(nextQuestion));
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, questionFragment, "questionFragment");
         transaction.commit();
     }
 
-    @Override
-    public void updateScoreBoard(int questionId, int selectedAnswer) {
+    private void updateScore(int questionId, int selectedAnswer) {
         for (Question question: questions) {
-            if (question.getQuestionId() == questionId) {
-                if (selectedAnswer == question.getAnswer()) {
-                    question.setSelectedAnswer(true);
-                }
+            if (question.getQuestionId() == questionId && selectedAnswer == question.getAnswer()) {
+                question.setSelectedAnswer(true);
             }
         }
+    }
+
+    private void showFinalScoreCard() {
+        scoreBoard.setEndDate(Calendar.getInstance().getTime());
+        scoreBoard.setScore(getFinalScore());
+        setResult(Activity.RESULT_OK, getReturnIntent());
+        finish();
+    }
+
+    @Override
+    public void updateScoreBoard(int nextQuestion, int selectedAnswer) {
+        updateScore(nextQuestion-1, selectedAnswer);
+        if (nextQuestion >= questions.size()) {
+            showFinalScoreCard();
+        } else {
+            showQuestionOnFragment(nextQuestion, selectedAnswer);
+        }
+    }
+
+    private int getFinalScore() {
+        int score = 0;
+        for (Question question: questions) {
+            if (question.getSelectedAnswer() == true) {
+                score++;
+            }
+        }
+        return score;
+    }
+
+    private Intent getReturnIntent() {
+        Intent returnToMainActivity = new Intent();
+        returnToMainActivity.putExtra("score", scoreBoard.getScore());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        returnToMainActivity.putExtra("start", simpleDateFormat.format(scoreBoard.getStartDate()));
+        returnToMainActivity.putExtra("end", simpleDateFormat.format(scoreBoard.getEndDate()));
+        returnToMainActivity.putExtra("user", scoreBoard.getUser());
+
+        return returnToMainActivity;
+    }
+
+    @Override
+    public void submitUser(User user) {
+
     }
 }

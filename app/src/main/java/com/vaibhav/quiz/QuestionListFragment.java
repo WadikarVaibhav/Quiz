@@ -27,8 +27,7 @@ public class QuestionListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
         ListToDetails listToDetails = (ListToDetails) getActivity();
-        listToDetails.showQuestionOnFragment(position, -1);
+        listToDetails.showQuestionOnFragment(++position, -1);
     }
 }

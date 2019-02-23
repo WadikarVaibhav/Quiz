@@ -2,6 +2,7 @@ package com.vaibhav.quiz;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         ListToDetails listToDetails = (ListToDetails) getActivity();
-        int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId()));
-        int currentQuestion = getArguments().getInt("questionId");
-        if (currentQuestion <= 3) {
-            listToDetails.showQuestionOnFragment(currentQuestion, selectedAnswer);
-        } else {
-            listToDetails.updateScoreBoard(currentQuestion, selectedAnswer);
-        }
+        int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))+1;
+        int nextQuestion = getArguments().getInt("questionId") + 1;
+        listToDetails.updateScoreBoard(nextQuestion, selectedAnswer);
     }
 }
