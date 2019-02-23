@@ -23,7 +23,6 @@ import java.util.List;
 
 public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
-
     private List<Question> questions;
     private Summary summary;
 
@@ -34,7 +33,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         summary = new Summary();
         fetchQuestionsFromDB();
         initQuizSummary();
-        questionsList();
+        createQuestionsList();
     }
 
     private void initQuizSummary() {
@@ -49,7 +48,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         questions = dbHelper.getAllQuestion();
     }
 
-    private void questionsList() {
+    private void createQuestionsList() {
         QuestionListFragment questionList = new QuestionListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -64,7 +63,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         return ActivityConstants.BUTTON_TEXT_FINISH;
     }
 
-    private Bundle questionDetailsBundle(int questionId) {
+    private Bundle getQuestionDetails(int questionId) {
         Bundle bundle = new Bundle();
         for (Question question: questions) {
             if (question.getQuestionId() == questionId) {
@@ -84,7 +83,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
     @Override
     public void nextQuestion(int nextQuestion, int selectedAnswer) {
         QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setArguments(questionDetailsBundle(nextQuestion));
+        questionFragment.setArguments(getQuestionDetails(nextQuestion));
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, questionFragment, ActivityConstants.QUESTION_LABEL);
@@ -99,15 +98,15 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         }
     }
 
-    private void saveSummary() {
+    private void saveQuizSummary() {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         dbHelper.insert(summary);
     }
 
-    private void scoreCard() {
+    private void generateQuizSummary() {
         summary.setEndDate(Calendar.getInstance().getTime());
-        summary.setScore(finalScore());
-        saveSummary();
+        summary.setScore(getFinalScore());
+        saveQuizSummary();
         setResult(Activity.RESULT_OK, getReturnIntent());
         finish();
     }
@@ -116,13 +115,13 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
     public void onNextQuestion(int nextQuestionId, int selectedAnswer) {
         updateScore(nextQuestionId-1, selectedAnswer);
         if (nextQuestionId > questions.size()) {
-            scoreCard();
+            generateQuizSummary();
         } else {
             nextQuestion(nextQuestionId, selectedAnswer);
         }
     }
 
-    private int finalScore() {
+    private int getFinalScore() {
         int score = 0;
         for (Question question: questions) {
             if (question.getSelectedAnswer() == true) {

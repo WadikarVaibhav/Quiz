@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.vaibhav.quiz.R;
-import com.vaibhav.quiz.communication.UserDataCommunicator;
+import com.vaibhav.quiz.communication.UserdataCommunicator;
 import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.model.User;
 
@@ -37,7 +37,7 @@ public class FormFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (validate()) {
             User user = new User(firstname.getText().toString(), lastname.getText().toString(), nickname.getText().toString(), Integer.parseInt(age.getText().toString()));
-            UserDataCommunicator userDataCommunicator = (UserDataCommunicator) getActivity();
+            UserdataCommunicator userDataCommunicator = (UserdataCommunicator) getActivity();
             userDataCommunicator.submitUser(user);
         } else {
             Toast toast = Toast.makeText(getContext(), ActivityConstants.VALIDATION_MESSAGE, Toast.LENGTH_SHORT);

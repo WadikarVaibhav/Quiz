@@ -10,12 +10,8 @@ import java.text.SimpleDateFormat;
 import com.vaibhav.quiz.model.Question;
 import com.vaibhav.quiz.model.Summary;
 import com.vaibhav.quiz.model.User;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static com.vaibhav.quiz.constants.ActivityConstants.DATE_FORMAT;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -100,5 +96,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put("END_DATE", new SimpleDateFormat(ActivityConstants.DATE_FORMAT).format(summary.getEndDate()));
             db.insert(SCORE_TABLE, null, values);
         }
-
 }

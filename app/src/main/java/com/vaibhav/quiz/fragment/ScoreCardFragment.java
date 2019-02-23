@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.vaibhav.quiz.R;
+import com.vaibhav.quiz.communication.UserdataCommunicator;
 import com.vaibhav.quiz.constants.ActivityConstants;
 
 public class ScoreCardFragment extends Fragment implements View.OnClickListener {
@@ -40,6 +41,5 @@ public class ScoreCardFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
     }
 }

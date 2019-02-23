@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.vaibhav.quiz.communication.UserDataCommunicator;
+import com.vaibhav.quiz.communication.UserdataCommunicator;
 import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.db.DatabaseHelper;
 import com.vaibhav.quiz.R;
@@ -16,13 +16,13 @@ import com.vaibhav.quiz.model.User;
 import com.vaibhav.quiz.fragment.FormFragment;
 import com.vaibhav.quiz.fragment.ScoreCardFragment;
 
-public class MainActivity extends AppCompatActivity implements UserDataCommunicator {
+public class MainActivity extends AppCompatActivity implements UserdataCommunicator {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userRegistrationForm();
+        createUserRegistrationForm();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
         startActivityForResult(intent, ActivityConstants.REQUEST_CODE);
     }
 
-    private void userRegistrationForm() {
+    private void createUserRegistrationForm() {
         FormFragment form = new FormFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
         transaction.commit();
     }
 
-    private void scoreCard(Intent intent) {
-        Bundle bundle = scoreCardBundle(intent);
+    private void createScoreCard(Intent intent) {
+        Bundle bundle = getScoreCardData(intent);
         ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
         scoreCardFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
         transaction.commitAllowingStateLoss();
     }
 
-    private Bundle scoreCardBundle(Intent data) {
+    private Bundle getScoreCardData(Intent data) {
         Bundle bundle = new Bundle();
         bundle.putInt(ActivityConstants.SCORE, data.getIntExtra(ActivityConstants.SCORE, 0));
         bundle.putString(ActivityConstants.START_TIME, data.getStringExtra(ActivityConstants.START_TIME));
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements UserDataCommunica
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == ActivityConstants.REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                scoreCard(data);
+                createScoreCard(data);
             }
         }
     }
