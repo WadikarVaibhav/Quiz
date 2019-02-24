@@ -31,8 +31,8 @@ public class ScoreCardFragment extends Fragment implements View.OnClickListener 
         quit.setOnClickListener(this);
 
         Bundle bundle = getArguments();
-        name.setText(bundle.getInt(ActivityConstants.USER_NAME, 0)+"");
-        score.setText(bundle.getInt(ActivityConstants.SCORE, 0)+"");
+        name.setText(bundle.getInt(ActivityConstants.USER_NAME, 0) + "");
+        score.setText(bundle.getInt(ActivityConstants.SCORE, 0) + "");
         start.setText(bundle.getString(ActivityConstants.START_TIME, ""));
         end.setText(bundle.getString(ActivityConstants.END_TIME, ""));
 

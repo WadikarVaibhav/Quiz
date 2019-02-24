@@ -9,23 +9,37 @@ public class Summary {
     private Date start;
     private Date end;
 
-    public void setUser(int user) { this.user = user; }
+    public void setUser(int user) {
+        this.user = user;
+    }
 
     public int getUser() {
         return user;
     }
 
-    public void setStartDate(Date date) { this.start = date; }
+    public void setStartDate(Date date) {
+        this.start = date;
+    }
 
-    public Date getStartDate() { return start; }
+    public Date getStartDate() {
+        return start;
+    }
 
-    public void setEndDate(Date end) { this.end = end; }
+    public void setEndDate(Date end) {
+        this.end = end;
+    }
 
-    public Date getEndDate() { return end; }
+    public Date getEndDate() {
+        return end;
+    }
 
-    public void setScore(int score) { this.score = score; }
+    public void setScore(int score) {
+        this.score = score;
+    }
 
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
 
 
 }

@@ -45,7 +45,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
     private void fetchQuestionsFromDB() {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        questions = dbHelper.getAllQuestion();
+        questions = dbHelper.getAllQuestions();
     }
 
     private void createQuestionsList() {
@@ -65,7 +65,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
     private Bundle getQuestionDetails(int questionId) {
         Bundle bundle = new Bundle();
-        for (Question question: questions) {
+        for (Question question : questions) {
             if (question.getQuestionId() == questionId) {
                 bundle.putInt(ActivityConstants.QUESTION_ID, question.getQuestionId());
                 bundle.putString(ActivityConstants.QUESTION_TEXT, question.getQuestion());
@@ -91,7 +91,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
     }
 
     private void updateScore(int questionId, int selectedAnswer) {
-        for (Question question: questions) {
+        for (Question question : questions) {
             if (question.getQuestionId() == questionId && selectedAnswer == question.getAnswer()) {
                 question.setSelectedAnswer(true);
             }
@@ -113,7 +113,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
     @Override
     public void onNextQuestion(int nextQuestionId, int selectedAnswer) {
-        updateScore(nextQuestionId-1, selectedAnswer);
+        updateScore(nextQuestionId - 1, selectedAnswer);
         if (nextQuestionId > questions.size()) {
             generateQuizSummary();
         } else {
@@ -123,7 +123,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
 
     private int getFinalScore() {
         int score = 0;
-        for (Question question: questions) {
+        for (Question question : questions) {
             if (question.getSelectedAnswer() == true) {
                 score++;
             }

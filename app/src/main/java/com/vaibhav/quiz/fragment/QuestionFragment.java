@@ -49,7 +49,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId()))+1;
+        int selectedAnswer = radioGroup.indexOfChild(getActivity().findViewById(radioGroup.getCheckedRadioButtonId())) + 1;
         int nextQuestion = getArguments().getInt(ActivityConstants.QUESTION_ID) + 1;
         QuizCommunicator quizCommunicator = (QuizCommunicator) getActivity();
         quizCommunicator.onNextQuestion(nextQuestion, selectedAnswer);
