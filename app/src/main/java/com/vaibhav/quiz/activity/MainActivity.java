@@ -14,8 +14,8 @@ import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.db.DatabaseHelper;
 import com.vaibhav.quiz.R;
 import com.vaibhav.quiz.model.User;
-import com.vaibhav.quiz.fragment.FormFragment;
-import com.vaibhav.quiz.fragment.ScoreCardFragment;
+import com.vaibhav.quiz.fragment.UserRegistration;
+import com.vaibhav.quiz.fragment.ScoreReport;
 
 public class MainActivity extends AppCompatActivity implements UserdataCommunicator {
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
     }
 
     private void createUserRegistrationForm() {
-        FormFragment form = new FormFragment();
+        UserRegistration form = new UserRegistration();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.main_container, form, ActivityConstants.FORM_LABEL);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
 
     private void createScoreCard(Intent intent) {
         Bundle bundle = getScoreCardData(intent);
-        ScoreCardFragment scoreCardFragment = new ScoreCardFragment();
+        ScoreReport scoreCardFragment = new ScoreReport();
         scoreCardFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

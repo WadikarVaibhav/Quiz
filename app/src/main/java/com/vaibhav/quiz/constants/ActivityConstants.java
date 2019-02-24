@@ -18,7 +18,7 @@ public class ActivityConstants {
 
     public static final String BUTTON_TEXT_NEXT = "Next";
     public static final String BUTTON_TEXT_FINISH = "Finish";
-    public static final String QUESTIONS_LIST_LABEL = "questions_list_fragment";
+    public static final String QUESTIONS_LIST_LABEL = "questions_list";
     public static final String QUESTION_ID = "questionId";
     public static final String QUESTION_TEXT = "question";
     public static final String ANSWER = "answer";
@@ -29,5 +29,7 @@ public class ActivityConstants {
     public static final String BUTTON_TEXT = "btnText";
     public static final String QUESTION_LABEL = "questionFragment";
     public static final String DATE_FORMAT = "dd-MMM-yy h.mm.a";
+    public static final String BACKSTACK_MESSAGE_TO_FETCH_QUESTIONS_FROM_DB = "fetchedQuestionsFromDB";
+    public static final String BACKSTACK_MESSAGE_TO_REPLACE_WITH_NEXT_QUESTION = "replacedWithNextQuestion";
 
 }

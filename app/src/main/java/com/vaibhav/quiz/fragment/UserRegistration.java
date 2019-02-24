@@ -12,7 +12,7 @@ import com.vaibhav.quiz.communication.UserdataCommunicator;
 import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.model.User;
 
-public class FormFragment extends Fragment implements View.OnClickListener {
+public class UserRegistration extends Fragment implements View.OnClickListener {
 
 
     EditText firstname;
@@ -23,7 +23,7 @@ public class FormFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.form_fragment, container, false);
+        View view = inflater.inflate(R.layout.user_registration, container, false);
         firstname = (EditText) view.findViewById(R.id.firstname);
         nickname = (EditText) view.findViewById(R.id.nickname);
         lastname = (EditText) view.findViewById(R.id.lastname);
@@ -35,7 +35,7 @@ public class FormFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (validate()) {
+        if (isValid()) {
             User user = new User(firstname.getText().toString(), lastname.getText().toString(), nickname.getText().toString(), Integer.parseInt(age.getText().toString()));
             UserdataCommunicator userDataCommunicator = (UserdataCommunicator) getActivity();
             userDataCommunicator.submitUser(user);
@@ -45,7 +45,7 @@ public class FormFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private boolean validate() {
+    private boolean isValid() {
         if (TextUtils.isEmpty(firstname.getText()) || TextUtils.isEmpty(lastname.getText())) {
             return false;
         }

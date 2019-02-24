@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.R;
 
-public class QuestionListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class QuestionsList extends ListFragment implements AdapterView.OnItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questions_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.questions_list, container, false);
         return view;
     }
 

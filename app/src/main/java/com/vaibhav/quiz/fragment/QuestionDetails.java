@@ -13,7 +13,7 @@ import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.R;
 import com.vaibhav.quiz.constants.ActivityConstants;
 
-public class QuestionFragment extends Fragment implements View.OnClickListener {
+public class QuestionDetails extends Fragment implements View.OnClickListener {
 
     TextView question;
     RadioButton btn1;
@@ -25,7 +25,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.question_fragment, container, false);
+        View view = inflater.inflate(R.layout.question_details, container, false);
 
         question = (TextView) view.findViewById(R.id.question);
         radioGroup = (RadioGroup) view.findViewById(R.id.radiogroup);

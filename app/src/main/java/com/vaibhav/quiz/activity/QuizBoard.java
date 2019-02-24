@@ -10,11 +10,10 @@ import com.vaibhav.quiz.*;
 import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.constants.ActivityConstants;
 import com.vaibhav.quiz.db.DatabaseHelper;
-import com.vaibhav.quiz.fragment.QuestionFragment;
-import com.vaibhav.quiz.fragment.QuestionListFragment;
+import com.vaibhav.quiz.fragment.QuestionDetails;
+import com.vaibhav.quiz.fragment.QuestionsList;
 import com.vaibhav.quiz.model.Question;
 import com.vaibhav.quiz.model.Summary;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +35,11 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         createQuestionsList();
     }
 
+    private void fetchQuestionsFromDB() {
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        questions = dbHelper.getAllQuestions();
+    }
+
     private void initQuizSummary() {
         summary.setUser(getIntent().getExtras().getInt(ActivityConstants.USER_ID));
         summary.setStartDate(Calendar.getInstance().getTime());
@@ -43,24 +47,23 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         summary.setScore(0);
     }
 
-    private void fetchQuestionsFromDB() {
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        questions = dbHelper.getAllQuestions();
-    }
-
     private void createQuestionsList() {
-        QuestionListFragment questionList = new QuestionListFragment();
+        QuestionsList questionList = new QuestionsList();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.container, questionList, ActivityConstants.QUESTIONS_LIST_LABEL);
         transaction.commit();
     }
 
-    private String buttonText(int questionIndex) {
-        if (questionIndex < questions.size()) {
-            return ActivityConstants.BUTTON_TEXT_NEXT;
-        }
-        return ActivityConstants.BUTTON_TEXT_FINISH;
+    @Override
+    public void nextQuestion(int nextQuestion, int selectedAnswer) {
+        QuestionDetails questionFragment = new QuestionDetails();
+        questionFragment.setArguments(getQuestionDetails(nextQuestion));
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, questionFragment, ActivityConstants.QUESTION_LABEL);
+        transaction.addToBackStack(ActivityConstants.BACKSTACK_MESSAGE_TO_REPLACE_WITH_NEXT_QUESTION);
+        transaction.commit();
     }
 
     private Bundle getQuestionDetails(int questionId) {
@@ -80,24 +83,6 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         return bundle;
     }
 
-    @Override
-    public void nextQuestion(int nextQuestion, int selectedAnswer) {
-        QuestionFragment questionFragment = new QuestionFragment();
-        questionFragment.setArguments(getQuestionDetails(nextQuestion));
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, questionFragment, ActivityConstants.QUESTION_LABEL);
-        transaction.commit();
-    }
-
-    private void updateScore(int questionId, int selectedAnswer) {
-        for (Question question : questions) {
-            if (question.getQuestionId() == questionId && selectedAnswer == question.getAnswer()) {
-                question.setSelectedAnswer(true);
-            }
-        }
-    }
-
     private void saveQuizSummary() {
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         dbHelper.insert(summary);
@@ -107,7 +92,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         summary.setEndDate(Calendar.getInstance().getTime());
         summary.setScore(getFinalScore());
         saveQuizSummary();
-        setResult(Activity.RESULT_OK, getReturnIntent());
+        setResult(Activity.RESULT_OK, getFinalScoreReportData());
         finish();
     }
 
@@ -119,6 +104,21 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         } else {
             nextQuestion(nextQuestionId, selectedAnswer);
         }
+    }
+
+    private void updateScore(int questionId, int selectedAnswer) {
+        for (Question question : questions) {
+            if (question.getQuestionId() == questionId && selectedAnswer == question.getAnswer()) {
+                question.setSelectedAnswer(true);
+            }
+        }
+    }
+
+    private String buttonText(int questionIndex) {
+        if (questionIndex < questions.size()) {
+            return ActivityConstants.BUTTON_TEXT_NEXT;
+        }
+        return ActivityConstants.BUTTON_TEXT_FINISH;
     }
 
     private int getFinalScore() {
@@ -136,7 +136,7 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         return simpleDateFormat.format(date);
     }
 
-    private Intent getReturnIntent() {
+    private Intent getFinalScoreReportData() {
         Intent returnToMainActivity = new Intent();
         returnToMainActivity.putExtra(ActivityConstants.SCORE, summary.getScore());
         returnToMainActivity.putExtra(ActivityConstants.START_TIME, formatDate(summary.getStartDate()));

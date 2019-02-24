@@ -7,14 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import com.vaibhav.quiz.constants.ActivityConstants;
-
 import java.text.SimpleDateFormat;
-
 import com.vaibhav.quiz.constants.DatabaseConstants;
 import com.vaibhav.quiz.model.Question;
 import com.vaibhav.quiz.model.Summary;
 import com.vaibhav.quiz.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
