@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
         transaction.commit();
     }
 
+
     private void createScoreCard(Intent intent) {
         Bundle bundle = getScoreCardData(intent);
         ScoreReport scoreCardFragment = new ScoreReport();
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
         bundle.putInt(ActivityConstants.SCORE, data.getIntExtra(ActivityConstants.SCORE, 0));
         bundle.putString(ActivityConstants.START_TIME, data.getStringExtra(ActivityConstants.START_TIME));
         bundle.putString(ActivityConstants.END_TIME, data.getStringExtra(ActivityConstants.END_TIME));
-        bundle.putInt(ActivityConstants.USER_NAME, data.getIntExtra(ActivityConstants.USER_NAME, 0));
+        bundle.putString(ActivityConstants.USER_NAME, data.getStringExtra(ActivityConstants.USER_NAME));
         return bundle;
     }
 

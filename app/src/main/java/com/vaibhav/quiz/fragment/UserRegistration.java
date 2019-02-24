@@ -1,6 +1,8 @@
 package com.vaibhav.quiz.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,7 +16,6 @@ import com.vaibhav.quiz.model.User;
 
 public class UserRegistration extends Fragment implements View.OnClickListener {
 
-
     EditText firstname;
     EditText nickname;
     EditText lastname;
@@ -24,11 +25,11 @@ public class UserRegistration extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_registration, container, false);
-        firstname = (EditText) view.findViewById(R.id.firstname);
-        nickname = (EditText) view.findViewById(R.id.nickname);
-        lastname = (EditText) view.findViewById(R.id.lastname);
-        age = (EditText) view.findViewById(R.id.age);
-        submit = (Button) view.findViewById(R.id.submit);
+        firstname = view.findViewById(R.id.firstname);
+        nickname = view.findViewById(R.id.nickname);
+        lastname = view.findViewById(R.id.lastname);
+        age = view.findViewById(R.id.age);
+        submit = view.findViewById(R.id.submit);
         submit.setOnClickListener(this);
         return view;
     }
@@ -46,9 +47,6 @@ public class UserRegistration extends Fragment implements View.OnClickListener {
     }
 
     private boolean isValid() {
-        if (TextUtils.isEmpty(firstname.getText()) || TextUtils.isEmpty(lastname.getText())) {
-            return false;
-        }
-        return true;
+        return !TextUtils.isEmpty(firstname.getText()) && !TextUtils.isEmpty(lastname.getText()) && !TextUtils.isEmpty(nickname.getText()) && !TextUtils.isEmpty(age.getText());
     }
 }

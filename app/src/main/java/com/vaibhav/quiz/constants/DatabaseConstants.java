@@ -24,5 +24,7 @@ public class DatabaseConstants {
     public static final String USER_ID = "USER_ID";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
+    public static final String ID = "ID = ";
+
 
 }

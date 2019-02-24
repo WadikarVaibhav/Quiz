@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 import com.vaibhav.quiz.constants.ActivityConstants;
 import java.text.SimpleDateFormat;
 import com.vaibhav.quiz.constants.DatabaseConstants;
@@ -85,5 +86,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseConstants.START_DATE, new SimpleDateFormat(ActivityConstants.DATE_FORMAT).format(summary.getStartDate()));
         values.put(DatabaseConstants.END_DATE, new SimpleDateFormat(ActivityConstants.DATE_FORMAT).format(summary.getEndDate()));
         db.insert(DatabaseConstants.SCORE_TABLE, null, values);
+    }
+
+    public String getUserName(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
+        sqLiteQueryBuilder.setTables(DatabaseConstants.USER_TABLE);
+        sqLiteQueryBuilder.appendWhere(DatabaseConstants.ID + userId);
+        Cursor cursor = sqLiteQueryBuilder.query(db, null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                return cursor.getString(1).concat(" ").concat(cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+        return "";
     }
 }

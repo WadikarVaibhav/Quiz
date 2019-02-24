@@ -27,16 +27,16 @@ public class QuestionDetails extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.question_details, container, false);
 
-        question = (TextView) view.findViewById(R.id.question);
-        radioGroup = (RadioGroup) view.findViewById(R.id.radiogroup);
-        btn1 = (RadioButton) view.findViewById(R.id.btn1);
-        btn2 = (RadioButton) view.findViewById(R.id.btn2);
-        btn3 = (RadioButton) view.findViewById(R.id.btn3);
-        btn4 = (RadioButton) view.findViewById(R.id.btn4);
-        next = (Button) view.findViewById(R.id.next);
+        question = view.findViewById(R.id.question);
+        radioGroup = view.findViewById(R.id.radiogroup);
+        btn1 = view.findViewById(R.id.btn1);
+        btn2 = view.findViewById(R.id.btn2);
+        btn3 = view.findViewById(R.id.btn3);
+        btn4 = view.findViewById(R.id.btn4);
+        next = view.findViewById(R.id.next);
 
         Bundle bundle = getArguments();
-        question.setText(bundle.getString(ActivityConstants.QUESTION_TEXT, ""));
+        question.setText(bundle.getString(ActivityConstants.QUESTION_TEXT, "").toUpperCase());
         btn1.setText(bundle.getString(ActivityConstants.OPTION_1, ""));
         btn2.setText(bundle.getString(ActivityConstants.OPTION_2, ""));
         btn3.setText(bundle.getString(ActivityConstants.OPTION_3, ""));

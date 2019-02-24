@@ -141,8 +141,13 @@ public class QuizBoard extends AppCompatActivity implements QuizCommunicator {
         returnToMainActivity.putExtra(ActivityConstants.SCORE, summary.getScore());
         returnToMainActivity.putExtra(ActivityConstants.START_TIME, formatDate(summary.getStartDate()));
         returnToMainActivity.putExtra(ActivityConstants.END_TIME, formatDate(summary.getEndDate()));
-        returnToMainActivity.putExtra(ActivityConstants.USER_NAME, summary.getUser());
+        returnToMainActivity.putExtra(ActivityConstants.USER_NAME, fetchUserName(summary.getUser()));
         return returnToMainActivity;
     }
 
+    private String fetchUserName(int userId) {
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        String username = db.getUserName(userId);
+        return username;
+    }
 }

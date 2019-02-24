@@ -6,15 +6,23 @@
     <string name="hint_nickname">Nickname</string>
     <string name="hint_age">Age</string>
     <string name="btn_submit">Submit</string>
-    <string name="welcome">Welcome</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="score">Score</string>
+    <string name="name">Name</string>
+    <string name="start">Start Time</string>
+    <string name="end">End Time</string>
 
     <string-array name="questions">
         <item>Question 1</item>
         <item>Question 2</item>
         <item>Question 3</item>
         <item>Question 4</item>
+        <item>Question 5</item>
+        <item>Question 6</item>
+        <item>Question 7</item>
+        <item>Question 8</item>
+        <item>Question 9</item>
+        <item>Question 10</item>
+
     </string-array>
 
 </resources>
