@@ -2,36 +2,132 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TableLayout android:background="@color/white" android:layout_margin="20dp" android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-        <TableRow android:gravity="center">
-            <TextView android:textSize="20sp" android:text="@string/summary" android:gravity="center"
-                      android:textStyle="bold"/>
-        </TableRow>
-        <TableRow>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/name"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:id="@+id/name"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-        </TableRow>
-        <TableRow >
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/score"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:id="@+id/score"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-        </TableRow>
-        <TableRow >
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/start"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:id="@+id/start"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-        </TableRow>
-        <TableRow>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/end"
-                      android:layout_margin="10dp" android:textSize="18sp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:id="@+id/end"
-                      android:layout_margin="10dp"  android:textSize="18sp"/>
-        </TableRow>
-    </TableLayout>
+     <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="@string/name"
+                    android:singleLine="true"
+                    android:textSize="18sp"
+                    android:textColor="@color/firstname"
+                    android:textColorHint="@color/input_login_hint"/>
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/name"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/firstname"
+                    android:textColorHint="@color/input_login_hint"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:text="@string/score"
+                    android:singleLine="true"
+                    android:textColor="@color/firstname"
+                    android:textColorHint="@color/input_login_hint"/>
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:id="@+id/score"
+                    android:textSize="18sp"
+                    android:singleLine="true"
+                    android:textColor="@color/firstname"
+                    android:textColorHint="@color/input_login_hint"/>
+        </LinearLayout>
+
+         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+             <TextView
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:textSize="18sp"
+                     android:background="@color/white"
+                     android:padding="10dp"
+                     android:layout_weight="1"
+                     android:text="@string/start"
+                     android:singleLine="true"
+                     android:textColor="@color/firstname"
+                     android:textColorHint="@color/input_login_hint"/>
+             <TextView
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:background="@color/white"
+                     android:padding="10dp"
+                     android:id="@+id/start"
+                     android:textSize="18sp"
+                     android:singleLine="true"
+                     android:textColor="@color/firstname"
+                     android:textColorHint="@color/input_login_hint"/>
+         </LinearLayout>
+
+         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+             <TextView
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:background="@color/white"
+                     android:padding="10dp"
+                     android:text="@string/end"
+                     android:singleLine="true"
+                     android:textSize="18sp"
+                     android:textColor="@color/firstname"
+                     android:textColorHint="@color/input_login_hint"/>
+             <TextView
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:background="@color/white"
+                     android:padding="10dp"
+                     android:id="@+id/end"
+                     android:textSize="18sp"
+                     android:singleLine="true"
+                     android:textColor="@color/firstname"
+                     android:textColorHint="@color/input_login_hint"/>
+         </LinearLayout>
+
+         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+             <Button android:layout_width="0dp" android:layout_height="match_parent"
+                     android:layout_weight="1" android:textSize="18sp" android:text="@string/quit" android:id="@+id/quit"/>
+             <Button android:layout_width="0dp" android:layout_height="match_parent" android:id="@+id/startNew"
+             android:layout_weight="1" android:textSize="18sp" android:text="@string/start_new"/>
+         </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

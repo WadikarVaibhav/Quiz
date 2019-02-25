@@ -58,9 +58,4 @@ public class QuestionDetails extends Fragment implements View.OnClickListener {
         QuizCommunicator quizCommunicator = (QuizCommunicator) getActivity();
         quizCommunicator.onNextQuestion(nextQuestion, selectedAnswer);
     }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 }

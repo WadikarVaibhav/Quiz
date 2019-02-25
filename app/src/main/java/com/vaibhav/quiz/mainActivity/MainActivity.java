@@ -23,11 +23,18 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
 
     @Override
     public void sendUserIdToQuiz(int userId) {
-        //DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        //int userId = db.insert(user);
         Intent intent = new Intent(MainActivity.this, QuizBoard.class);
         intent.putExtra(MainActivityConstants.USER_ID, userId);
         startActivityForResult(intent, MainActivityConstants.REQUEST_CODE);
+    }
+
+    @Override
+    public void startNewQuiz() {
+        UserRegistration form = new UserRegistration();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_container, form, MainActivityConstants.FORM_LABEL);
+        transaction.commit();
     }
 
     private void createUserRegistrationForm() {
