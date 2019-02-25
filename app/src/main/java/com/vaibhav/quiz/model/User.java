@@ -1,11 +1,13 @@
 package com.vaibhav.quiz.model;
 
+import java.util.Date;
+
 public class User {
 
-    private String firstname;
-    private String lastname;
-    private String nickname;
-    private int age;
+    private final String firstname;
+    private final String lastname;
+    private final String nickname;
+    private final int age;
 
     public User(String firstname, String lastname, String nickname, int age) {
         this.firstname = firstname;
@@ -15,18 +17,18 @@ public class User {
     }
 
     public String getFirstname() {
-        return firstname;
+        return this.firstname;
     }
 
     public String getLastname() {
-        return lastname;
+        return this.lastname;
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 }

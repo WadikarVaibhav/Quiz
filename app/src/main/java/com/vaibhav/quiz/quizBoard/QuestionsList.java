@@ -1,4 +1,4 @@
-package com.vaibhav.quiz.fragment;
+package com.vaibhav.quiz.quizBoard;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,8 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import com.vaibhav.quiz.communication.QuizCommunicator;
 import com.vaibhav.quiz.R;
+
+/**
+ * This is a question List fragment which displays list of questions from database.
+ * Whereas list items are populated using string-array from resource directory
+ */
 
 public class QuestionsList extends ListFragment implements AdapterView.OnItemClickListener {
 

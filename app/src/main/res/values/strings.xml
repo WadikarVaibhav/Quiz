@@ -10,19 +10,13 @@
     <string name="name">Name</string>
     <string name="start">Start Time</string>
     <string name="end">End Time</string>
+    <string name="summary">Quiz Summary</string>
 
     <string-array name="questions">
         <item>Question 1</item>
         <item>Question 2</item>
         <item>Question 3</item>
         <item>Question 4</item>
-        <item>Question 5</item>
-        <item>Question 6</item>
-        <item>Question 7</item>
-        <item>Question 8</item>
-        <item>Question 9</item>
-        <item>Question 10</item>
-
     </string-array>
 
 </resources>

@@ -7,7 +7,7 @@
     <color name="white">#ffffff</color>
     <color name="firstname">#222222</color>
     <color name="input_login_hint">#999999</color>
-    <color name="btn_login_bg">#eceef1</color>
+    <color name="btn_login_bg">#D3D3D3</color>
     <color name="lbl_name">#333333</color>
     <color name="question">#000000</color>
 

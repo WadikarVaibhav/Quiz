@@ -1,45 +1,43 @@
 package com.vaibhav.quiz.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Summary {
 
-    private int user;
-    private int score;
-    private Date start;
-    private Date end;
+    private final int userId;
+    private int userScore;
+    private final Date startTime;
+    private Date endTime;
 
-    public void setUser(int user) {
-        this.user = user;
+    public Summary(int userId) {
+        this.userId = userId;
+        this.userScore = 0;
+        this.startTime = Calendar.getInstance().getTime();
+        this.endTime = Calendar.getInstance().getTime();
     }
 
-    public int getUser() {
-        return user;
+    public int getUserId() {
+        return this.userId;
     }
 
-    public void setStartDate(Date date) {
-        this.start = date;
+    public Date getStartTime() {
+        return this.startTime;
     }
 
-    public Date getStartDate() {
-        return start;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public void setEndDate(Date end) {
-        this.end = end;
+    public Date getEndTime() {
+        return this.endTime;
     }
 
-    public Date getEndDate() {
-        return end;
+    public void setUserScore(int userScore) {
+        this.userScore = userScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public int getUserScore() {
+        return this.userScore;
     }
-
-    public int getScore() {
-        return score;
-    }
-
-
 }

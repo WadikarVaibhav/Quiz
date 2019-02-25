@@ -1,4 +1,4 @@
-package com.vaibhav.quiz.communication;
+package com.vaibhav.quiz.quizBoard;
 
 public interface QuizCommunicator {
 

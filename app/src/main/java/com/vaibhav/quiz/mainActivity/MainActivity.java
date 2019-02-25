@@ -1,4 +1,4 @@
-package com.vaibhav.quiz.activity;
+package com.vaibhav.quiz.mainActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,13 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.vaibhav.quiz.communication.UserdataCommunicator;
-import com.vaibhav.quiz.constants.ActivityConstants;
-import com.vaibhav.quiz.db.DatabaseHelper;
+import com.vaibhav.quiz.quizBoard.QuizBoard;
 import com.vaibhav.quiz.R;
-import com.vaibhav.quiz.model.User;
-import com.vaibhav.quiz.fragment.UserRegistration;
-import com.vaibhav.quiz.fragment.ScoreReport;
 
 public class MainActivity extends AppCompatActivity implements UserdataCommunicator {
 
@@ -27,19 +22,19 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
     }
 
     @Override
-    public void submitUser(User user) {
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        int userId = db.insert(user);
+    public void sendUserIdToQuiz(int userId) {
+        //DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        //int userId = db.insert(user);
         Intent intent = new Intent(MainActivity.this, QuizBoard.class);
-        intent.putExtra(ActivityConstants.USER_ID, userId);
-        startActivityForResult(intent, ActivityConstants.REQUEST_CODE);
+        intent.putExtra(MainActivityConstants.USER_ID, userId);
+        startActivityForResult(intent, MainActivityConstants.REQUEST_CODE);
     }
 
     private void createUserRegistrationForm() {
         UserRegistration form = new UserRegistration();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_container, form, ActivityConstants.FORM_LABEL);
+        transaction.add(R.id.main_container, form, MainActivityConstants.FORM_LABEL);
         transaction.commit();
     }
 
@@ -50,22 +45,22 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
         scoreCardFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_container, scoreCardFragment, ActivityConstants.SCORE_CARD_LABEL);
+        transaction.replace(R.id.main_container, scoreCardFragment, MainActivityConstants.SCORE_CARD_LABEL);
         transaction.commitAllowingStateLoss();
     }
 
     private Bundle getScoreCardData(Intent data) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ActivityConstants.SCORE, data.getIntExtra(ActivityConstants.SCORE, 0));
-        bundle.putString(ActivityConstants.START_TIME, data.getStringExtra(ActivityConstants.START_TIME));
-        bundle.putString(ActivityConstants.END_TIME, data.getStringExtra(ActivityConstants.END_TIME));
-        bundle.putString(ActivityConstants.USER_NAME, data.getStringExtra(ActivityConstants.USER_NAME));
+        bundle.putInt(MainActivityConstants.SCORE, data.getIntExtra(MainActivityConstants.SCORE, 0));
+        bundle.putString(MainActivityConstants.START_TIME, data.getStringExtra(MainActivityConstants.START_TIME));
+        bundle.putString(MainActivityConstants.END_TIME, data.getStringExtra(MainActivityConstants.END_TIME));
+        bundle.putString(MainActivityConstants.USER_NAME, data.getStringExtra(MainActivityConstants.USER_NAME));
         return bundle;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == ActivityConstants.REQUEST_CODE) {
+        if (requestCode == MainActivityConstants.REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 createScoreCard(data);
             }
@@ -75,14 +70,14 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
-            .setTitle(ActivityConstants.QUIT_MESSAGE_TITLE).setMessage(ActivityConstants.QUIT_MESSAGE)
-            .setPositiveButton(ActivityConstants.QUIT_MESSAGE_YES, new DialogInterface.OnClickListener() {
+            .setTitle(MainActivityConstants.QUIT_MESSAGE_TITLE).setMessage(MainActivityConstants.QUIT_MESSAGE)
+            .setPositiveButton(MainActivityConstants.QUIT_MESSAGE_YES, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
             })
-            .setNegativeButton(ActivityConstants.QUIT_MESSAGE_NO, null)
+            .setNegativeButton(MainActivityConstants.QUIT_MESSAGE_NO, null)
             .show();
     }
 

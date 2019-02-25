@@ -1,4 +1,4 @@
-package com.vaibhav.quiz.constants;
+package com.vaibhav.quiz.db;
 
 public class DatabaseConstants {
 

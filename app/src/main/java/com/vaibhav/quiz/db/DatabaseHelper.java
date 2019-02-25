@@ -6,15 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
-import com.vaibhav.quiz.constants.ActivityConstants;
 import java.text.SimpleDateFormat;
-import com.vaibhav.quiz.constants.DatabaseConstants;
+import com.vaibhav.quiz.quizBoard.QuizBoardConstants;
 import com.vaibhav.quiz.model.Question;
 import com.vaibhav.quiz.model.Summary;
 import com.vaibhav.quiz.model.User;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -40,33 +36,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private Question getQuestionFromCursor(Cursor cursor) {
-        Question question = new Question();
-        question.setQuestionId(Integer.parseInt(cursor.getString(0)));
-        question.setQuestion(cursor.getString(1));
-        question.setAnswer(cursor.getInt(2));
-        question.setOption1(cursor.getString(3));
-        question.setOption2(cursor.getString(4));
-        question.setOption3(cursor.getString(5));
-        question.setOption4(cursor.getString(6));
-        question.setSelectedAnswer(false);
-        return question;
-    }
-
-    public List<Question> getAllQuestions() {
-        List<Question> questions = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
-        sqLiteQueryBuilder.setTables(DatabaseConstants.QUESTIONS_TABLE);
-        Cursor cursor = sqLiteQueryBuilder.query(db, null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                questions.add(getQuestionFromCursor(cursor));
-            } while (cursor.moveToNext());
-        }
-        return questions;
-    }
-
     public int insert(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -81,10 +50,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insert(Summary summary) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DatabaseConstants.USER_ID, summary.getUser());
-        values.put(DatabaseConstants.SCORE, summary.getScore());
-        values.put(DatabaseConstants.START_DATE, new SimpleDateFormat(ActivityConstants.DATE_FORMAT).format(summary.getStartDate()));
-        values.put(DatabaseConstants.END_DATE, new SimpleDateFormat(ActivityConstants.DATE_FORMAT).format(summary.getEndDate()));
+        values.put(DatabaseConstants.USER_ID, summary.getUserId());
+        values.put(DatabaseConstants.SCORE, summary.getUserScore());
+        values.put(DatabaseConstants.START_DATE,
+                new SimpleDateFormat(QuizBoardConstants.DATE_FORMAT).format(summary.getStartTime()));
+        values.put(DatabaseConstants.END_DATE,
+                new SimpleDateFormat(QuizBoardConstants.DATE_FORMAT).format(summary.getEndTime()));
         db.insert(DatabaseConstants.SCORE_TABLE, null, values);
     }
 
