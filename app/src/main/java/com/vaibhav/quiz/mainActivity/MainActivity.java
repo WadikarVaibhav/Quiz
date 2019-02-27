@@ -9,16 +9,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.vaibhav.quiz.db.DatabaseConstants;
+import com.vaibhav.quiz.db.DatabaseHelper;
+import com.vaibhav.quiz.model.User;
 import com.vaibhav.quiz.quizBoard.QuizBoard;
 import com.vaibhav.quiz.R;
 
 public class MainActivity extends AppCompatActivity implements UserdataCommunicator {
 
+    User previousUser = null;
+    int prevUserId = 0;
+    int previousUserScore = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getPreviousUserData();
         createUserRegistrationForm();
+    }
+
+    private void getPreviousUserData() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+        previousUser = databaseHelper.getPreviousUserData();
     }
 
     @Override
@@ -28,9 +41,23 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
         startActivityForResult(intent, MainActivityConstants.REQUEST_CODE);
     }
 
+    private Bundle getPreviousUserDataInBundle() {
+        Bundle bundle = new Bundle();
+        if (previousUser != null) {
+            bundle.putString(DatabaseConstants.FIRST_NAME, previousUser.getFirstname());
+            bundle.putString(DatabaseConstants.LAST_NAME, previousUser.getLastname());
+            bundle.putString(DatabaseConstants.NICK_NAME, previousUser.getNickname());
+            bundle.putInt(DatabaseConstants.AGE, previousUser.getAge());
+            bundle.putInt(DatabaseConstants.SCORE, previousUserScore);
+        }
+        return bundle;
+    }
+
     @Override
     public void startNewQuiz() {
+        getPreviousUserData();
         UserRegistration form = new UserRegistration();
+        form.setArguments(getPreviousUserDataInBundle());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_container, form, MainActivityConstants.FORM_LABEL);
@@ -39,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements UserdataCommunica
 
     private void createUserRegistrationForm() {
         UserRegistration form = new UserRegistration();
+        form.setArguments(getPreviousUserDataInBundle());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.main_container, form, MainActivityConstants.FORM_LABEL);

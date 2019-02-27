@@ -63,6 +63,7 @@
                 android:textColor="@color/firstname"
                 android:imeOptions="actionSend"
                 android:textColorHint="@color/input_login_hint"/>
+
         <Button
                 android:id="@+id/submit"
                 android:layout_width="fill_parent"

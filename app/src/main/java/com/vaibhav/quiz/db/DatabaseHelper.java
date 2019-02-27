@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+
 import java.text.SimpleDateFormat;
+
 import com.vaibhav.quiz.quizBoard.QuizBoardConstants;
 import com.vaibhav.quiz.model.Question;
 import com.vaibhav.quiz.model.Summary;
@@ -24,14 +26,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DatabaseConstants.CREATE_TABLE_USER);
-        db.execSQL(DatabaseConstants.CREATE_TABLE_QUESTION);
         db.execSQL(DatabaseConstants.CREATE_TABLE_SCORE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DatabaseConstants.DROP_TABLE + DatabaseConstants.USER_TABLE);
-        db.execSQL(DatabaseConstants.DROP_TABLE + DatabaseConstants.QUESTIONS_TABLE);
         db.execSQL(DatabaseConstants.DROP_TABLE + DatabaseConstants.SCORE_TABLE);
         onCreate(db);
     }
@@ -72,4 +72,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return "";
     }
+
+
+    public User getPreviousUserData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseConstants.USER_TABLE, null, null, null, null, null, "ID DESC");
+        while (cursor.moveToNext()) {
+            String firstName = cursor.getString(cursor.getColumnIndex(DatabaseConstants.FIRST_NAME));
+            String lastName = cursor.getString(cursor.getColumnIndex(DatabaseConstants.LAST_NAME));
+            String nickName = cursor.getString(cursor.getColumnIndex(DatabaseConstants.NICK_NAME));
+            int age = cursor.getInt(cursor.getColumnIndex(DatabaseConstants.AGE));
+            User user = new User(firstName, lastName, nickName, age);
+            return user;
+        }
+        cursor.close();
+        return null;
+    }
+
+
 }

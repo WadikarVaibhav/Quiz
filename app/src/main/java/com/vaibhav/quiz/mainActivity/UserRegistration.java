@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.vaibhav.quiz.R;
 import com.vaibhav.quiz.db.DBCommunicator;
+import com.vaibhav.quiz.db.DatabaseConstants;
 import com.vaibhav.quiz.db.DatabaseHelper;
 import com.vaibhav.quiz.model.Summary;
 import com.vaibhav.quiz.model.User;
@@ -29,6 +30,13 @@ public class UserRegistration extends Fragment implements View.OnClickListener, 
         lastname = view.findViewById(R.id.lastname);
         age = view.findViewById(R.id.age);
         submit = view.findViewById(R.id.submit);
+
+        Bundle bundle = getArguments();
+        firstname.setText(bundle.getString(DatabaseConstants.FIRST_NAME, ""));
+        lastname.setText(bundle.getString(DatabaseConstants.LAST_NAME, ""));
+        nickname.setText(bundle.getString(DatabaseConstants.NICK_NAME, ""));
+        age.setText(bundle.getInt(DatabaseConstants.AGE, 0)+"");
+
         submit.setOnClickListener(this);
         return view;
     }
